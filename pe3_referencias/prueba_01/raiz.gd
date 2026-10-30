@@ -66,8 +66,8 @@ func _ejecutar() -> void:
         "por_evento": conteo_por_evento,
         "contexto_final": {
             "padre_de_A2": $B/A2.get_parent().name,
-            "hijos_de_A": Array($A.get_children()).map(func(n: Node): return str(n.name)),
-            "hijos_de_B": Array($B.get_children()).map(func(n: Node): return str(n.name))
+            "hijos_de_A": ($A.get_children()).map(func(n: Node): return str(n.name)),
+            "hijos_de_B": ($B.get_children()).map(func(n: Node): return str(n.name))
         },
         "advertencias": [
             "Las conexiones de senales se prepararon en _ready; no representan receptores automaticos.",
