@@ -74,3 +74,10 @@ for more information.
 
 [![Code Triagers Badge](https://www.codetriage.com/godotengine/godot/badges/users.svg)](https://www.codetriage.com/godotengine/godot)
 [![Translate on Weblate](https://hosted.weblate.org/widgets/godot-engine/-/godot/svg-badge.svg)](https://hosted.weblate.org/engage/godot-engine/?utm_source=widget)
+
+
+## PE3 · Navegación de referencias
+
+[Jerarquía](pe3_referencias/jerarquia/README.md) · [Comunicación](pe3_referencias/comunicacion/README.md) · [Diseño abierto](pe3_referencias/pendientes/README.md)
+
+[Índice PE3](pe3_referencias/README.md). Referencias de estudio; el código original del motor permanece intacto.
