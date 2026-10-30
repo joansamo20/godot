@@ -7,8 +7,17 @@ func _ready() -> void:
     child_order_changed.connect(func(): _registrar("senal", "child_order_changed"))
     child_entered_tree.connect(func(n: Node): _registrar("senal", "child_entered_tree", n.name))
     child_exiting_tree.connect(func(n: Node): _registrar("senal", "child_exiting_tree", n.name))
+    tree_entered.connect(func(): _registrar("senal", "tree_entered"))
+    tree_exiting.connect(func(): _registrar("senal", "tree_exiting"))
+    tree_exited.connect(func(): _registrar("senal", "tree_exited"))
     get_tree().tree_changed.connect(func(): _registrar("SceneTree.senal", "tree_changed"))
     _registrar("virtual", "_ready")
+
+func _enter_tree() -> void:
+    _registrar("virtual", "_enter_tree")
+
+func _exit_tree() -> void:
+    _registrar("virtual", "_exit_tree")
 
 func _notification(codigo: int) -> void:
     match codigo:
