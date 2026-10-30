@@ -61,3 +61,20 @@ Solo cuatro scripts: Raíz, A2, B y C. Sin clases de comunicación nuevas, sin m
 **Comparación futura, aún no implementada:** desde este resultado nativo construir control imperativo equivalente y comparar acciones explícitas, cobertura, dependencia entre nodos y legibilidad. No llamar A/B a dos mecanismos con propósitos distintos.
 
 **Criterio:** no premiar cantidad de eventos; identificar **qué contexto da Godot justo cuando ocurre cada evento**, qué reacciones puede habilitar y qué falta. No modificar la arquitectura a partir de supuestos.
+
+## Predicción previa · Prueba 1 (2026-10-30; NO es resultado)
+
+**Movimiento único:** A2 cambia de A a B. Se observarán las perspectivas de Raíz, A2, B y C con los cuatro scripts existentes.
+
+| Nodo | Predicción falsable |
+| --- | --- |
+| Raíz | Observará señales globales o eventos registrados por sus suscripciones, pero no obtendrá automáticamente todos los detalles de la relación antigua/nueva. |
+| A2 | Registrará eventos directos de desparentado, parentado y salida/entrada al árbol; podrá consultar su contexto en distintos estados. |
+| B | Detectará la incorporación de A2 por eventos de sus hijos y podrá consultar la nueva lista de hijos. |
+| C | No recibirá señal local de incorporación; al estar suscrito explícitamente a SceneTree.tree_changed podría registrar un cambio sin saber cuál fue la causa. |
+
+**Secuencia prevista, sin asegurar orden interno:** desvinculación de A → eventos de salida/desparentado → incorporación a B → eventos de parentado/entrada → estado final. El orden real, la cantidad de emisiones y qué valores son accesibles en cada callback deben obtenerse del log de Godot.
+
+**Hipótesis central:** la reacción basada en eventos estructurales permitirá observar cambios sin llamadas directas a cada observador; la notificación nativa no proporcionará por sí sola un payload semántico completo del movimiento. **Alternativa en evaluación:** notificación custom con argumentos.
+
+**Regla de evaluación:** comparar contra salida real de Godot; no tratar la simulación Python ni el número de eventos que produjo como verdad de motor.
