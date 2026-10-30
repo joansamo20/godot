@@ -80,7 +80,7 @@ func observar(nodo: Node, mecanismo: String, evento: String, dato: String = "") 
         "hijos": hijos,
         "ancestros": ancestros,
         "ruta": str(nodo.get_path()) if nodo.is_inside_tree() else "(fuera de tree)",
-        "grupos": Array(nodo.get_groups()),
+        "grupos": nodo.get_groups(),
         "decision": "registrar contexto; sin reaccion de dominio"
     }
     registros.append(registro)
