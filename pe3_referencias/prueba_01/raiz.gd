@@ -1,5 +1,6 @@
 extends Node
 
+const VERSION_PRUEBA := "PE3-P01-V3"
 var activo := false
 var secuencia := 0
 var registros: Array[Dictionary] = []
@@ -17,6 +18,7 @@ func _ready() -> void:
     get_tree().node_added.connect(func(n: Node): observar(self, "SceneTree.senal", "node_added", n.name))
     get_tree().node_removed.connect(func(n: Node): observar(self, "SceneTree.senal", "node_removed", n.name))
     activo = true
+    print("VERSION_PRUEBA | ", VERSION_PRUEBA)
     inicio_ms = Time.get_ticks_msec()
     observar(self, "control", "estado_inicial")
     call_deferred("_ejecutar")
@@ -44,6 +46,7 @@ func _ejecutar() -> void:
     observar(self, "control", "despues_de_reparent")
     await get_tree().process_frame
     observar(self, "control", "estado_final")
+    fase = "cierre"
     activo = false # No registrar el desmontaje provocado por quit().
     var conteo_por_nodo := {}
     var conteo_por_mecanismo := {}
@@ -57,10 +60,12 @@ func _ejecutar() -> void:
         conteo_por_evento[evento] = conteo_por_evento.get(evento, 0) + 1
     var diagnostico := {
         "tipo": "diagnostico",
-        "version": 2,
+        "version": VERSION_PRUEBA,
         "godot": Engine.get_version_info().get("string", "desconocido"),
         "operacion": "A2.reparent(B)",
         "total": registros.size(),
+        "movimiento_valido": $B/A2.get_parent() == $B and not $A.has_node("A2"),
+        "cierre_excluido": true,
         "por_nodo": conteo_por_nodo,
         "por_mecanismo": conteo_por_mecanismo,
         "por_evento": conteo_por_evento,
