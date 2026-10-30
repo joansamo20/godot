@@ -3,7 +3,7 @@ extends Node
 var informe: Node
 
 func _ready() -> void:
-    informe = get_tree().current_scene
+    informe = get_node("/root/Raiz")
     child_order_changed.connect(func(): _registrar("senal", "child_order_changed"))
     child_entered_tree.connect(func(n: Node): _registrar("senal", "child_entered_tree", n.name))
     child_exiting_tree.connect(func(n: Node): _registrar("senal", "child_exiting_tree", n.name))
